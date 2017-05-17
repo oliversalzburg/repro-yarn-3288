@@ -1,0 +1,14 @@
+#!/bin/env bash
+cd /tmp
+rm --recursive --force repro-yarn-3288 > /dev/null
+git clone https://github.com/oliversalzburg/repro-yarn-3288.git
+cd /tmp/repro-yarn-3288/deep-dependency
+yarn link
+
+cd /tmp/repro-yarn-3288/dependency
+yarn link
+yarn link @oliversalzburg/deep-dependency
+
+cd /tmp/repro-yarn-3288/dependent
+yarn link @oliversalzburg/dependency
+yarn install
